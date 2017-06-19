@@ -1,0 +1,61 @@
+# Waypoints describe the desired motion trajectory:
+#  - time [s]: can be either a single value or an interval for which all the specified joint_positions hold
+#  - joint_positions: a list of namespaces which contain the vector of joint position references of the relative device
+#                     (the measurement units depend on the device type, e.g. qbhand needs a single [0,1] value).
+#                     If a namespace is not specified for a given waypoint, it is assumed that it does not change the
+#                     device position, e.g. if the end-effector pose remains unchanged for duration of the grasp, the
+#                     user can avoid copy-pasting it for the involved waypoints. Nonetheless for critical applications
+#                     it is recommended to specify it to avoid interpolation approximation, e.g. following the above
+#                     example, the arm could start moving before the grasp has ended if the end-effector pose is not
+#                     specified for all the waypoints.
+
+waypoints:
+  -
+    time: [1.0]
+    joint_positions:
+      cube1: [0.0, 0.0]
+      cube2: [0.0, 0.0]
+      cube3: [0.0, 0.0]
+      cube4: [0.0, 0.0]
+  -
+    time: [2.0, 2.5]
+    joint_positions:
+      cube1: [0.0, 0.5]
+      cube2: [0.0, 0.5]
+      cube3: [0.0, 0.5]
+      cube4: [0.0, 0.5]
+  -
+    time: [4.5, 5.0]
+    joint_positions:
+      cube1: [1.57, 0.5]
+      cube2: [1.57, 0.5]
+      cube3: [1.57, 0.5]
+      cube4: [1.57, 0.5]
+  -
+    time: [5.5, 6.0]
+    joint_positions:
+      cube1: [1.57, 0.5]
+      cube2: [1.57, 0.5]
+      cube3: [1.57, 0.5]
+      cube4: [1.57, 0.5]
+  -
+    time: [10.5, 11]
+    joint_positions:
+      cube1: [-2.58, 0.5]
+      cube2: [-2.58, 0.5]
+      cube3: [-2.58, 0.5]
+      cube4: [-2.58, 0.5]
+  -
+    time: [11.5, 12]
+    joint_positions:
+      cube1: [-2.58, 0.5]
+      cube2: [-2.58, 0.5]
+      cube3: [-2.58, 0.5]
+      cube4: [-2.58, 0.5]
+  -
+    time: [14.5, 15]
+    joint_positions:
+      cube1: [0.0, 0.0]
+      cube2: [0.0, 0.0]
+      cube3: [0.0, 0.0]
+      cube4: [0.0, 0.0]

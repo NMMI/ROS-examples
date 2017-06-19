@@ -1,6 +1,6 @@
 <package format="2">
-  <name>qb_multi_device</name>
-  <version>3.0.0</version>
+  <name>qb_chain</name>
+  <version>1.0.0</version>
   <description>
     This package contains the ROS interface to control multiple qbrobotics® devices simultaneously.
   </description>
@@ -8,14 +8,14 @@
   <maintainer email="alessandro.tondo@qbrobotics.com">Alessandro Tondo</maintainer>
   <license>BSD 3-Clause</license>
 
-  <url type="bugtracker">https://github.com/qbrobotics/qb_multi_device/issues</url>
-  <url type="repository">https://github.com/qbrobotics/qb_multi_device</url>
-  <url type="website">http://www.qbrobotics.com/</url>
+  <url type="bugtracker">https://bitbucket.org/qbrobotics/qbchain-ros/issues</url>
+  <url type="repository">https://bitbucket.org/qbrobotics/qbchain-ros</url>
+  <url type="website">http://wiki.ros.org/qb_chain</url>
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <exec_depend>qb_multi_device_control</exec_depend>
-  <exec_depend>qb_multi_device_description</exec_depend>
+  <exec_depend>qb_chain_control</exec_depend>
+  <exec_depend>qb_chain_description</exec_depend>
 
   <export>
     <metapackage/>

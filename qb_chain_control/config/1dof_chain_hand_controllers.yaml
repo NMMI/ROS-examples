@@ -1,0 +1,60 @@
+base_joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+# control the qbmove with shaft reference position and stiffness preset
+base_position_and_preset_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - base_shaft_joint
+    - base_stiffness_preset_virtual_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    base_shaft_joint:
+      trajectory: 0.05
+      goal: 0.01
+    base_stiffness_preset_virtual_joint:
+      trajectory: 0.05
+      goal: 0.01
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0
+
+# control the qbmove with motor positions
+base_motor_positions_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - base_motor_1_joint
+    - base_motor_2_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    base_motor_1_joint:
+      trajectory: 0.05
+      goal: 0.01
+    base_motor_2_joint:
+      trajectory: 0.05
+      goal: 0.01
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0
+
+ee_joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+# control the qbhand motor and its relative synergy
+ee_synergy_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - ee_synergy_joint
+  constraints:
+    goal_time: 0.1
+    stopped_velocity_tolerance: 0.05
+    ee_synergy_joint:
+      trajectory: 0.05
+      goal: 0.01
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0

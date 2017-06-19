@@ -1,0 +1,262 @@
+####################################
+## note =
+## note.0 = [[ROS/Tutorials|ROS Tutorials]]
+## note.1 = [[Robots/qbhand|qbhand]]
+## note.2 = [[Robots/qbmove|qbmove]]
+## title = qbchain ROS Packages Installation
+## description = Install the last qbchain related ROS packages
+## next =
+## next.0.link = [[qb_chain/Tutorials/qbchain Customization|qbchain Customization]]
+## next.1.link =
+## level = BeginnerCategory
+## keywords = qbchain qbhand qbmove installation
+####################################
+<<IncludeCSTemplate(TutorialCSHeaderTemplate)>>
+
+{{{#!wiki caution
+If you have not yet installed the ROS related packages for either your [[Robots/qbhand|qbhand]]s or [[Robots/qbmove|qbmove]]s (or even both if you need to use them together), please follow their wikis first.
+}}}
+
+To install also this packages, simply clone `git@bitbucket.org:qbrobotics/qbchain-ros.git` in your Catkin Workspace as you have done for the others. Note that there is no need to recompile since this repository contains only example configurations based on the other packages.
+
+Actually the installation is not required. Nonetheless it is recommended to follow the proposed approach for your customizations to keep everything tidy and structured.
+
+## TutorialCategory
+
+
+
+
+
+####################################
+## note =
+## note.0 = [[qb_chain/Tutorials/qbchain ROS Packages Installation|qbchain ROS Packages Installation]]
+## title = qbchain Customization
+## description = Create a custom configuration for your chained system
+## next =
+## next.0.link =
+## next.1.link =
+## level = IntermediateCategory
+## keywords = qbchain qbhand qbmove
+####################################
+<<IncludeCSTemplate(TutorialCSHeaderTemplate)>>
+
+== Overview ==
+{{{#!wiki caution
+If it is the first time you are dealing with ''qbrobotics®'' devices, or you have only worked with just one of them per time, please consider to spend five minutes on our examples before creating your own configuration. Otherwise you can skip to [[#customization|Customization]].
+}}}
+
+Each system configuration has a unique name. And that name is used as prefix for all the configuration files:
+ * `qb_chain_description/rviz/<unique_name>.rviz`: the [[rviz]] configuration file.
+ * `qb_chain_description/urdf/<unique_name>.urdf.xacro`: the [[urdf]]/[[xacro]] model describing the physical chained system by connecting together simpler ''qbhand'' or ''qbmove'' modules (and possibly other parts).
+ * `qb_chain_control/config/<unique_name>_controllers.yaml`: the controllers related to all the ''qbrobotics®'' devices of the chain.
+ * `qb_chain_control/config/<unique_name>_waypoints.yaml`: the waypoints that the chained system must follow in the Waypoint Control mode.
+ * `qb_chain_control/launch/<unique_name>_gui_control.launch`: the launch file to start the GUI Control mode for the given devices.
+ * `qb_chain_control/launch/<unique_name>_waypoint_control.launch`: the launch file to start the Waypoint Control mode for the given devices.
+
+After you have looked at the proposed examples (at least the number and type of devices - and their IDs - must match your real setup), you can launch a given configuration by executing:
+{{{
+roslaunch qbchain <unique_name>_gui_control.launch
+}}}
+
+In such a case, several control nodes like the ones described in the single device wikis (cf. [[Robots/qbhand|qbhand]] or [[Robots/qbmove|qbmove]]) start, and let you control (e.g. through a GUI) all the connected devices together.
+
+{{{#!wiki caution
+If your real configuration does not resemble any of the given examples, read carefully the following instructions and create your own customization. Nonetheless it is recommended to test at least a subsystem chain with one of the proposed examples: if anything seems not to work as expected, feel free to ask for support on [[https://bitbucket.org/account/user/qbrobotics/projects/ROS|our Bitbucket]].
+}}}
+
+<<Anchor(customization)>>
+== Customization ==
+ 1. Choose a name for your robot, e.g. `my_chain`.
+
+ 1. The very first thing to set up is the chained system description, i.e. the [[urdf]]/[[xacro]] model exploiting single module descriptions, and possibly additional parts when required.
+
+ Adding a ''qbhand'' or a ''qbmove'' is basically a matter of copy-pasting a couple of xml lines and set their values. This is possible thanks to the macros contained in `qb_hand.utils.xacro` and `qb_move.utils.xacro`, which need to be included.
+
+ For example, if you have a robotic arm made of ''qbmove''s, you can connect the device aimed to reproduce the longitudinal rotation of the wrist (the ''qbmove'' called `wrist_roll`) to the one, i.e. to the shaft of the one, assigned to the elbow flexion (called `elbow_pitch`), by specifying only their relative position (in our example, 30 cm far along the x-axis with same orientation):
+ {{{
+<xacro:include filename="$(find qb_move_description)/urdf/qb_move.utils.xacro"/>
+
+<link name="root_link"/>
+...
+<xacro:build_move_from_default_yaml namespace="wrist_roll" parent="elbow_pitch_shaft">
+  <origin xyz="0.3 0 0" rpy="0 0 0"/>
+</xacro:build_move_from_default_yaml>
+...
+ }}}
+
+ And so on for all the other ''qbrobotics®'' devices.
+
+ {{{#!wiki note
+Note that to resemble your real configuration with more accuracy, additional meshes can be added to the model by specifying links fixed to their related ''qbmove''. In such a case, do not forget to properly set their inertial properties.
+ }}}
+
+ This file has to be saved in `qb_chain_description/urdf/my_chain.urdf.xacro`. You can skip the creation of a custom `qb_chain_description/rviz/my_chain.rviz`, but this will be set anyway when you save its configuration from within the GUI.
+
+ 1. Fill the `qb_chain_control/config/my_chain_controllers.yaml` properly. This can be vague, but it is nothing more than a copy-paste of the default controller settings with the current device names specified in the description.
+
+ Following the above example, this can be a valid configuration for the ''qbmove'' called `wrist_roll`:
+ {{{#!yaml
+wrist_roll_joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+# control the qbmove with shaft reference position and stiffness preset
+wrist_roll_position_and_preset_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - wrist_roll_shaft_joint
+    - wrist_roll_stiffness_preset_virtual_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    wrist_roll_shaft_joint:
+      trajectory: 0.1
+      goal: 0.05
+    wrist_roll_stiffness_preset_virtual_joint:
+      trajectory: 0.1
+      goal: 0.05
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0
+
+# control the qbmove with motor positions
+wrist_roll_motor_positions_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - wrist_roll_motor_1_joint
+    - wrist_roll_motor_2_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    wrist_roll_motor_1_joint:
+      trajectory: 0.1
+      goal: 0.05
+    wrist_roll_motor_2_joint:
+      trajectory: 0.1
+      goal: 0.05
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0
+ }}}
+
+ For the other ''qbmove'' you need to replace the prefix `wrist_roll` from all the occurrence with `elbow_pitch`, and that's it. The prefix must reflect the device name specified in the description model.
+
+ {{{#!wiki note
+Note that to avoid name clashes, even joint names depends on the device name.
+ }}}
+
+ Similar considerations can be made for a ''qbhand''. Please, refer to the default controller in its control package, i.e. `qb_hand_contrtol`.
+
+ 1. '''[optional]''' If required for simple applications or testing, a waypoint configuration file can be created in `qb_chain_control/config/my_chain_waypoints.yaml`. This file has the same structures of the ones of ''qbhand'' and ''qbmove'' but allows to specify several namespaces, each related to a single device.
+
+ Once again, following the same example:
+ {{{#!yaml
+# Waypoints describe the desired motion trajectory:
+#  - time [s]: can be either a single value or an interval for which all the specified
+#              joint_positions hold
+#  - joint_positions: a list of namespaces which contain the vector of joint position
+#              references of the relative device (the measurement units depend on the
+#              device type, e.g. qbhand needs a single [0,1] value).
+#              If a namespace is not specified for a given waypoint, it is assumed that
+#              it does not change the device position, e.g. if the end-effector pose
+#              remains unchanged for duration of the grasp, the user can avoid copy-
+#              pasting it for the involved waypoints. Nonetheless for critical
+#              applications it is recommended to specify it to avoid interpolation
+#              approximation, e.g. following the above example, the arm could start
+#              moving before the grasp has ended if the end-effector pose is not
+#              specified for all the waypoints.
+
+waypoints:
+  -
+    time: [1.0]
+    joint_positions:
+      ...
+      elbow_pitch: [0.0, 0.5]
+      wrist_roll: [0.0, 0.5]
+      ...
+  -
+    time: [2.0, 2.5]
+    joint_positions:
+      ...
+      elbow_pitch: [1.0, 0.5]
+      wrist_roll: [0.5, 0.5]
+      ...
+  -
+    ...
+ }}}
+
+ 1. Create GUI or Waypoint Control based launch files, respectively
+  * `qb_chain_control/launch/my_chain_gui_control.launch`, and
+  * `qb_chain_control/launch/my_chain_waypoint_control.launch`.
+
+ While the control mode selection is just a matter of ROS parameters, the launch files have to include the `*_bringup.launch` templates provided by `qb_device_description`, to properly load what needs. A simple example for the Waypoint Control is as follows:
+ {{{
+<launch>
+  <include file="$(find qb_device_driver)/launch/communication_handler.launch"/>
+
+  <!-- robot namspace -->
+  <group ns="my_chain">
+
+    ...
+
+    <include file="$(find qb_device_bringup)/launch/component_bringup.launch">
+      <arg name="control_action" value="position_and_preset"/>
+      <arg name="control_duration" value="0.001"/>
+      <arg name="controllers" value="wrist_roll_joint_state_controller
+                                     wrist_roll_position_and_preset_trajectory_controller
+                                     wrist_roll_motor_positions_trajectory_controller"/>
+      <arg name="controllers_namespace" value="my_chain"/>
+      <arg name="controllers_settings" value="qb_chain"/>
+      <arg name="device_id" value="1"/>
+      <arg name="device_control" value="qb_move"/>
+      <arg name="device_description" value="qb_move"/>
+      <arg name="device_namespace" value="wrist_roll"/>
+      <arg name="device_urdf" value="qb_move"/>
+      <arg name="use_controller_gui" value="false"/>
+      <arg name="use_waypoints" value="true"/>
+      <arg name="waypoint_namespace" value="my_chain"/>
+      <arg name="waypoint_settings" value="qb_chain"/>
+    </include>
+
+    <include file="$(find qb_device_bringup)/launch/component_bringup.launch">
+      <arg name="control_action" value="position_and_preset"/>
+      <arg name="control_duration" value="0.001"/>
+      <arg name="controllers" value="elbow_pitch_joint_state_controller
+                                     elbow_pitch_position_and_preset_trajectory_controller
+                                     elbow_pitch_motor_positions_trajectory_controller"/>
+      <arg name="controllers_namespace" value="my_chain"/>
+      <arg name="controllers_settings" value="qb_chain"/>
+      <arg name="device_id" value="2"/>
+      <arg name="device_control" value="qb_move"/>
+      <arg name="device_description" value="qb_move"/>
+      <arg name="device_namespace" value="elbow_pitch"/>
+      <arg name="device_urdf" value="qb_move"/>
+      <arg name="use_controller_gui" value="false"/>
+      <arg name="use_waypoints" value="true"/>
+      <arg name="waypoint_namespace" value="my_chain"/>
+      <arg name="waypoint_settings" value="qb_chain"/>
+    </include>
+
+    ...
+
+    <include file="$(find qb_device_bringup)/launch/description_bringup.launch">
+      <arg name="device_urdf" value="my_chain"/>
+      <arg name="device_description" value="qb_chain"/>
+      <arg name="source_list" value="[wrist_roll/joint_states, elbow_pitch/joint_states, ...]"/>
+      <arg name="use_rviz" value="true"/>
+    </include>
+  </group>
+</launch>
+ }}}
+
+ 1. And finally you are ready to start you custom ROS nodes by executing:
+ {{{
+roslaunch qbchain my_chain_waypoint_control.launch
+ }}}
+
+ At this point you have the same configuration of a single ''qbhand'' or ''qbmove'' control node (and almost the same considerations are true), but you are controlling several ''qbrobotics®'' devices together!
+
+=== Advanced ===
+If you need something more sophisticated than a simple predefined waypoint guidance, you can extend the API similarly to the single device cases (cf. [[qb_hand_control/Tutorials/qbhand API Control|qbhand API Control]] or [[qb_move_control/Tutorials/qbmove API Control|qbmove API Control]] for details).
+
+## TutorialCategory

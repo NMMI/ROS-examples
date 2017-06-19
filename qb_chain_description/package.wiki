@@ -1,0 +1,6 @@
+<<PackageHeader(qb_chain_description)>>
+<<TOC(4)>>
+
+This package contains the description resources for ''qbrobotics®'' device chains. It includes the [[urdf]]/[[xacro]] model of the chained systems exploiting single module descriptions, and extends them with additional parts when required.
+
+## CategoryPackage

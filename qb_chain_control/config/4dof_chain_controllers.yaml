@@ -1,0 +1,167 @@
+cube1_joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+# control the qbmove with shaft reference position and stiffness preset
+cube1_position_and_preset_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - cube1_shaft_joint
+    - cube1_stiffness_preset_virtual_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    cube1_shaft_joint:
+      trajectory: 0.1
+      goal: 0.05
+    cube1_stiffness_preset_virtual_joint:
+      trajectory: 0.1
+      goal: 0.05
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0
+
+# control the qbmove with motor positions
+cube1_motor_positions_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - cube1_motor_1_joint
+    - cube1_motor_2_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    cube1_motor_1_joint:
+      trajectory: 0.1
+      goal: 0.05
+    cube1_motor_2_joint:
+      trajectory: 0.1
+      goal: 0.05
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0
+
+cube2_joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+# control the qbmove with shaft reference position and stiffness preset
+cube2_position_and_preset_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - cube2_shaft_joint
+    - cube2_stiffness_preset_virtual_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    cube2_shaft_joint:
+      trajectory: 0.1
+      goal: 0.05
+    cube2_stiffness_preset_virtual_joint:
+      trajectory: 0.1
+      goal: 0.05
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0
+
+# control the qbmove with motor positions
+cube2_motor_positions_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - cube2_motor_1_joint
+    - cube2_motor_2_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    cube2_motor_1_joint:
+      trajectory: 0.1
+      goal: 0.05
+    cube2_motor_2_joint:
+      trajectory: 0.1
+      goal: 0.05
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0
+
+cube3_joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+# control the qbmove with shaft reference position and stiffness preset
+cube3_position_and_preset_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - cube3_shaft_joint
+    - cube3_stiffness_preset_virtual_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    cube3_shaft_joint:
+      trajectory: 0.1
+      goal: 0.05
+    cube3_stiffness_preset_virtual_joint:
+      trajectory: 0.1
+      goal: 0.05
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0
+
+# control the qbmove with motor positions
+cube3_motor_positions_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - cube3_motor_1_joint
+    - cube3_motor_2_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    cube3_motor_1_joint:
+      trajectory: 0.1
+      goal: 0.05
+    cube3_motor_2_joint:
+      trajectory: 0.1
+      goal: 0.05
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0
+
+cube4_joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+# control the qbmove with shaft reference position and stiffness preset
+cube4_position_and_preset_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - cube4_shaft_joint
+    - cube4_stiffness_preset_virtual_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    cube4_shaft_joint:
+      trajectory: 0.1
+      goal: 0.05
+    cube4_stiffness_preset_virtual_joint:
+      trajectory: 0.1
+      goal: 0.05
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0
+
+# control the qbmove with motor positions
+cube4_motor_positions_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - cube4_motor_1_joint
+    - cube4_motor_2_joint
+  constraints:
+    goal_time: 0.2
+    stopped_velocity_tolerance: 0.1
+    cube4_motor_1_joint:
+      trajectory: 0.1
+      goal: 0.05
+    cube4_motor_2_joint:
+      trajectory: 0.1
+      goal: 0.05
+  state_publish_rate: 100
+  action_monitor_rate: 120
+  stop_trajectory_duration: 0

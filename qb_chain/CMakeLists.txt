@@ -1,4 +1,4 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(qb_multi_device)
+project(qb_chain)
 find_package(catkin REQUIRED)
 catkin_metapackage()

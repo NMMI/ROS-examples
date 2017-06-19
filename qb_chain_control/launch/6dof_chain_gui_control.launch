@@ -1,0 +1,127 @@
+<launch>
+  <include file="$(find qb_device_driver)/launch/communication_handler.launch"/>
+
+  <!-- robot namspace -->
+  <group ns="6dof_chain">
+    <include file="$(find qb_device_bringup)/launch/component_bringup.launch">
+      <arg name="control_action" value="position_and_preset"/>
+      <arg name="control_duration" value="0.001"/>
+      <arg name="controllers" value="cube1_joint_state_controller
+                                     cube1_position_and_preset_trajectory_controller
+                                     cube1_motor_positions_trajectory_controller"/>
+      <arg name="controllers_namespace" value="6dof_chain"/>
+      <arg name="controllers_settings" value="qb_chain"/>
+      <arg name="device_id" value="1"/>
+      <arg name="device_control" value="qb_move"/>
+      <arg name="device_description" value="qb_move"/>
+      <arg name="device_namespace" value="cube1"/>
+      <arg name="device_urdf" value="qb_move"/>
+      <arg name="use_controller_gui" value="true"/>
+      <arg name="use_waypoints" value="false"/>
+      <arg name="waypoint_namespace" value="6dof_chain"/>
+      <arg name="waypoint_settings" value="qb_chain"/>
+    </include>
+
+    <include file="$(find qb_device_bringup)/launch/component_bringup.launch">
+      <arg name="control_action" value="position_and_preset"/>
+      <arg name="control_duration" value="0.001"/>
+      <arg name="controllers" value="cube2_joint_state_controller
+                                     cube2_position_and_preset_trajectory_controller
+                                     cube2_motor_positions_trajectory_controller"/>
+      <arg name="controllers_namespace" value="6dof_chain"/>
+      <arg name="controllers_settings" value="qb_chain"/>
+      <arg name="device_id" value="2"/>
+      <arg name="device_control" value="qb_move"/>
+      <arg name="device_description" value="qb_move"/>
+      <arg name="device_namespace" value="cube2"/>
+      <arg name="device_urdf" value="qb_move"/>
+      <arg name="use_controller_gui" value="true"/>
+      <arg name="use_waypoints" value="false"/>
+      <arg name="waypoint_namespace" value="6dof_chain"/>
+      <arg name="waypoint_settings" value="qb_chain"/>
+    </include>
+
+    <include file="$(find qb_device_bringup)/launch/component_bringup.launch">
+      <arg name="control_action" value="position_and_preset"/>
+      <arg name="control_duration" value="0.001"/>
+      <arg name="controllers" value="cube3_joint_state_controller
+                                     cube3_position_and_preset_trajectory_controller
+                                     cube3_motor_positions_trajectory_controller"/>
+      <arg name="controllers_namespace" value="6dof_chain"/>
+      <arg name="controllers_settings" value="qb_chain"/>
+      <arg name="device_id" value="3"/>
+      <arg name="device_control" value="qb_move"/>
+      <arg name="device_description" value="qb_move"/>
+      <arg name="device_namespace" value="cube3"/>
+      <arg name="device_urdf" value="qb_move"/>
+      <arg name="use_controller_gui" value="true"/>
+      <arg name="use_waypoints" value="false"/>
+      <arg name="waypoint_namespace" value="6dof_chain"/>
+      <arg name="waypoint_settings" value="qb_chain"/>
+    </include>
+
+    <include file="$(find qb_device_bringup)/launch/component_bringup.launch">
+      <arg name="control_action" value="position_and_preset"/>
+      <arg name="control_duration" value="0.001"/>
+      <arg name="controllers" value="cube4_joint_state_controller
+                                     cube4_position_and_preset_trajectory_controller
+                                     cube4_motor_positions_trajectory_controller"/>
+      <arg name="controllers_namespace" value="6dof_chain"/>
+      <arg name="controllers_settings" value="qb_chain"/>
+      <arg name="device_id" value="4"/>
+      <arg name="device_control" value="qb_move"/>
+      <arg name="device_description" value="qb_move"/>
+      <arg name="device_namespace" value="cube4"/>
+      <arg name="device_urdf" value="qb_move"/>
+      <arg name="use_controller_gui" value="true"/>
+      <arg name="use_waypoints" value="false"/>
+      <arg name="waypoint_namespace" value="6dof_chain"/>
+      <arg name="waypoint_settings" value="qb_chain"/>
+    </include>
+
+    <include file="$(find qb_device_bringup)/launch/component_bringup.launch">
+      <arg name="control_action" value="position_and_preset"/>
+      <arg name="control_duration" value="0.001"/>
+      <arg name="controllers" value="cube5_joint_state_controller
+                                     cube5_position_and_preset_trajectory_controller
+                                     cube5_motor_positions_trajectory_controller"/>
+      <arg name="controllers_namespace" value="6dof_chain"/>
+      <arg name="controllers_settings" value="qb_chain"/>
+      <arg name="device_id" value="5"/>
+      <arg name="device_control" value="qb_move"/>
+      <arg name="device_description" value="qb_move"/>
+      <arg name="device_namespace" value="cube5"/>
+      <arg name="device_urdf" value="qb_move"/>
+      <arg name="use_controller_gui" value="true"/>
+      <arg name="use_waypoints" value="false"/>
+      <arg name="waypoint_namespace" value="6dof_chain"/>
+      <arg name="waypoint_settings" value="qb_chain"/>
+    </include>
+
+    <include file="$(find qb_device_bringup)/launch/component_bringup.launch">
+      <arg name="control_action" value="position_and_preset"/>
+      <arg name="control_duration" value="0.001"/>
+      <arg name="controllers" value="cube6_joint_state_controller
+                                     cube6_position_and_preset_trajectory_controller
+                                     cube6_motor_positions_trajectory_controller"/>
+      <arg name="controllers_namespace" value="6dof_chain"/>
+      <arg name="controllers_settings" value="qb_chain"/>
+      <arg name="device_id" value="6"/>
+      <arg name="device_control" value="qb_move"/>
+      <arg name="device_description" value="qb_move"/>
+      <arg name="device_namespace" value="cube6"/>
+      <arg name="device_urdf" value="qb_move"/>
+      <arg name="use_controller_gui" value="true"/>
+      <arg name="use_waypoints" value="false"/>
+      <arg name="waypoint_namespace" value="6dof_chain"/>
+      <arg name="waypoint_settings" value="qb_chain"/>
+    </include>
+
+    <include file="$(find qb_device_bringup)/launch/description_bringup.launch">
+      <arg name="device_urdf" value="6dof_chain"/>
+      <arg name="device_description" value="qb_chain"/>
+      <arg name="source_list" value="[cube1/joint_states, cube2/joint_states, cube3/joint_states, cube4/joint_states, cube5/joint_states, cube6/joint_states]"/>
+      <arg name="use_rviz" value="true"/>
+    </include>
+  </group>
+</launch>

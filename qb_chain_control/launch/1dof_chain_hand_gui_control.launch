@@ -1,0 +1,50 @@
+<launch>
+  <include file="$(find qb_device_driver)/launch/communication_handler.launch"/>
+
+  <!-- robot namspace -->
+  <group ns="1dof_chain_hand">
+    <include file="$(find qb_device_bringup)/launch/component_bringup.launch">
+      <arg name="control_action" value="position_and_preset"/>
+      <arg name="control_duration" value="0.01"/>
+      <arg name="controllers" value="base_joint_state_controller
+                                     base_position_and_preset_trajectory_controller
+                                     base_motor_positions_trajectory_controller"/>
+      <arg name="controllers_namespace" value="1dof_chain_hand"/>
+      <arg name="controllers_settings" value="qb_chain"/>
+      <arg name="device_id" value="3"/>
+      <arg name="device_control" value="qb_move"/>
+      <arg name="device_description" value="qb_move"/>
+      <arg name="device_namespace" value="base"/>
+      <arg name="device_urdf" value="qb_move"/>
+      <arg name="use_controller_gui" value="true"/>
+      <arg name="use_waypoints" value="false"/>
+      <arg name="waypoint_namespace" value="1dof_chain_hand"/>
+      <arg name="waypoint_settings" value="qb_chain"/>
+    </include>
+
+    <include file="$(find qb_device_bringup)/launch/component_bringup.launch">
+      <arg name="control_action" value="synergy"/>
+      <arg name="control_duration" value="0.01"/>
+      <arg name="controllers" value="ee_joint_state_controller
+                                     ee_synergy_trajectory_controller"/>
+      <arg name="controllers_namespace" value="1dof_chain_hand"/>
+      <arg name="controllers_settings" value="qb_chain"/>
+      <arg name="device_id" value="1"/>
+      <arg name="device_control" value="qb_hand"/>
+      <arg name="device_description" value="qb_hand"/>
+      <arg name="device_namespace" value="ee"/>
+      <arg name="device_urdf" value="qb_hand"/>
+      <arg name="use_controller_gui" value="true"/>
+      <arg name="use_waypoints" value="false"/>
+      <arg name="waypoint_namespace" value="1dof_chain_hand"/>
+      <arg name="waypoint_settings" value="qb_chain"/>
+    </include>
+
+    <include file="$(find qb_device_bringup)/launch/description_bringup.launch">
+      <arg name="device_urdf" value="1dof_chain_hand"/>
+      <arg name="device_description" value="qb_chain"/>
+      <arg name="source_list" value="[base/joint_states, ee/joint_states]"/>
+      <arg name="use_rviz" value="true"/>
+    </include>
+  </group>
+</launch>

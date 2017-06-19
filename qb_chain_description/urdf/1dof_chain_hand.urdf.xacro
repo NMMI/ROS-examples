@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot name="1dof_chain_hand" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find qb_move_description)/urdf/qb_move.utils.xacro" ns="qbmove"/>
+  <xacro:include filename="$(find qb_hand_description)/urdf/qb_hand.utils.xacro"/>
+
+  <link name="root_link"/>
+
+  <xacro:qbmove.build_move_from_default_yaml namespace="base" parent="root">
+    <origin xyz="0 0.1 0" rpy="0.25 0 0"/>
+  </xacro:qbmove.build_move_from_default_yaml>
+  <xacro:build_hand_from_default_yaml namespace="ee" parent="base_shaft" hand_configuration="qb_hand_right">
+    <origin xyz="0 0 0.05" rpy="0 0 0.5"/>
+  </xacro:build_hand_from_default_yaml>
+
+</robot>
