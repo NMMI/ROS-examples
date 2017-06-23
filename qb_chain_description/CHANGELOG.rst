@@ -2,6 +2,10 @@
 Changelog for package qb_chain_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.3 (2017-06-23)
+------------------
+* Update cmake version to match Kinetic standards
+
 1.0.2 (2017-06-21)
 ------------------
 
