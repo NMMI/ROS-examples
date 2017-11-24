@@ -16,7 +16,7 @@ Please, refer to the following wikis respectively if you are dealing with a _qbh
 ## Installation
 >If you have not yet installed the ROS related packages for either your [_qbhand_](http://wiki.ros.org/Robots/qbhand)s or [_qbmove_](http://wiki.ros.org/Robots/qbmove)s (or even both if you need to use them together), please follow their wikis first.
 
-To install also this packages, simply clone `git@bitbucket.org:qbrobotics/qbchain-ros.git` in your Catkin Workspace as you have done for the others. Note that there is no need to recompile since this repository contains only example configurations based on the other packages.
+To install also this packages, simply clone `https://bitbucket.org/qbrobotics/qbchain-ros.git` in your Catkin Workspace as you have done for the others. Note that there is no need to recompile since this repository contains only example configurations based on the other packages.
 
 Actually the installation is not required. Nonetheless it is recommended to follow the proposed approach for your customizations to keep everything tidy and structured.
 

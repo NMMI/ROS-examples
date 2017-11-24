@@ -1,6 +1,6 @@
 <package format="2">
   <name>qb_chain</name>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <description>
     This package contains the ROS interface to control multiple qbrobotics® devices simultaneously.
   </description>
