@@ -2,6 +2,10 @@
 Changelog for package qb_chain_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.0 (2018-06-01)
+------------------
+* Refactor xacro models and relative launch files
+
 1.0.4 (2017-11-24)
 ------------------
 

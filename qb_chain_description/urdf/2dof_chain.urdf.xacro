@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot name="2dof_chain" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find qb_move_description)/urdf/qbmove.utils.xacro" ns="qbmove"/>
+
+  <link name="root_link"/>
+  <xacro:qbmove.build_flange_from_yaml flange="base_flange" namespace="cube1" parent="root"/>
+  <xacro:qbmove.build_move_from_yaml namespace="cube1" parent="cube1_base_flange">
+    <origin xyz="0.033 0 0.033" rpy="0 -1.57 0"/>
+  </xacro:qbmove.build_move_from_yaml>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_up" namespace="cube1" parent="cube1_shaft"/>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_down" namespace="cube1" parent="cube1_cube"/>
+
+  <joint name="root2_fixed_joint" type="fixed">
+    <origin xyz="0.2 0 0" rpy="0 0 0"/>
+    <parent link="root_link"/>
+    <child link="root2_link"/>
+  </joint>
+  <link name="root2_link"/>
+  <xacro:qbmove.build_flange_from_yaml flange="base_flange" namespace="cube2" parent="root2"/>
+  <xacro:qbmove.build_move_from_yaml namespace="cube2" parent="cube2_base_flange">
+    <origin xyz="0.033 0 0.033" rpy="0 -1.57 0"/>
+  </xacro:qbmove.build_move_from_yaml>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_up" namespace="cube2" parent="cube2_shaft"/>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_down" namespace="cube2" parent="cube2_cube"/>
+
+</robot>

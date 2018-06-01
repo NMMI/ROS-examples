@@ -1,28 +1,79 @@
 <?xml version="1.0"?>
-<robot name="1dof_chain_hand" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="6dof_chain" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find qb_move_description)/urdf/qb_move.utils.xacro" ns="qbmove"/>
-  <xacro:include filename="$(find qb_hand_description)/urdf/qb_hand.utils.xacro"/>
+  <xacro:include filename="$(find qb_move_description)/urdf/qbmove.utils.xacro" ns="qbmove"/>
 
   <link name="root_link"/>
+  <xacro:qbmove.build_flange_from_yaml flange="base_flange" namespace="cube1" parent="root"/>
+  <xacro:qbmove.build_move_from_yaml namespace="cube1" parent="cube1_base_flange">
+    <origin xyz="0.033 0 0.033" rpy="0 -1.57 0"/>
+  </xacro:qbmove.build_move_from_yaml>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_up" namespace="cube1" parent="cube1_shaft"/>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_down" namespace="cube1" parent="cube1_cube"/>
 
-  <xacro:qbmove.build_move_from_default_yaml namespace="cube1" parent="root">
-    <origin xyz="0 0.1 0" rpy="0.25 0 0"/>
-  </xacro:qbmove.build_move_from_default_yaml>
-  <xacro:qbmove.build_move_from_default_yaml namespace="cube2" parent="cube1_shaft">
-    <origin xyz="0 0.1 0" rpy="0.25 0 0"/>
-  </xacro:qbmove.build_move_from_default_yaml>
-  <xacro:qbmove.build_move_from_default_yaml namespace="cube3" parent="cube2_shaft">
-    <origin xyz="0 0.1 0" rpy="0.25 0 0"/>
-  </xacro:qbmove.build_move_from_default_yaml>
-  <xacro:qbmove.build_move_from_default_yaml namespace="cube4" parent="cube3_shaft">
-    <origin xyz="0 0.1 0" rpy="0.25 0 0"/>
-  </xacro:qbmove.build_move_from_default_yaml>
-  <xacro:qbmove.build_move_from_default_yaml namespace="cube5" parent="cube4_shaft">
-    <origin xyz="0 0.1 0" rpy="0.25 0 0"/>
-  </xacro:qbmove.build_move_from_default_yaml>
-  <xacro:qbmove.build_move_from_default_yaml namespace="cube6" parent="cube5_shaft">
-    <origin xyz="0 0.1 0" rpy="0.25 0 0"/>
-  </xacro:qbmove.build_move_from_default_yaml>
+  <joint name="root2_fixed_joint" type="fixed">
+    <origin xyz="0.2 0 0" rpy="0 0 0"/>
+    <parent link="root_link"/>
+    <child link="root2_link"/>
+  </joint>
+  <link name="root2_link"/>
+  <xacro:qbmove.build_flange_from_yaml flange="base_flange" namespace="cube2" parent="root2"/>
+  <xacro:qbmove.build_move_from_yaml namespace="cube2" parent="cube2_base_flange">
+    <origin xyz="0.033 0 0.033" rpy="0 -1.57 0"/>
+  </xacro:qbmove.build_move_from_yaml>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_up" namespace="cube2" parent="cube2_shaft"/>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_down" namespace="cube2" parent="cube2_cube"/>
+
+  <joint name="root3_fixed_joint" type="fixed">
+    <origin xyz="0.4 0 0" rpy="0 0 0"/>
+    <parent link="root_link"/>
+    <child link="root3_link"/>
+  </joint>
+  <link name="root3_link"/>
+  <xacro:qbmove.build_flange_from_yaml flange="base_flange" namespace="cube3" parent="root3"/>
+  <xacro:qbmove.build_move_from_yaml namespace="cube3" parent="cube3_base_flange">
+    <origin xyz="0.033 0 0.033" rpy="0 -1.57 0"/>
+  </xacro:qbmove.build_move_from_yaml>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_up" namespace="cube3" parent="cube3_shaft"/>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_down" namespace="cube3" parent="cube3_cube"/>
+
+  <joint name="root4_fixed_joint" type="fixed">
+    <origin xyz="0 0.2 0" rpy="0 0 0"/>
+    <parent link="root_link"/>
+    <child link="root4_link"/>
+  </joint>
+  <link name="root4_link"/>
+  <xacro:qbmove.build_flange_from_yaml flange="base_flange" namespace="cube4" parent="root4"/>
+  <xacro:qbmove.build_move_from_yaml namespace="cube4" parent="cube4_base_flange">
+    <origin xyz="0.033 0 0.033" rpy="0 -1.57 0"/>
+  </xacro:qbmove.build_move_from_yaml>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_up" namespace="cube4" parent="cube4_shaft"/>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_down" namespace="cube4" parent="cube4_cube"/>
+
+  <joint name="root5_fixed_joint" type="fixed">
+    <origin xyz="0.2 0.2 0" rpy="0 0 0"/>
+    <parent link="root_link"/>
+    <child link="root5_link"/>
+  </joint>
+  <link name="root5_link"/>
+  <xacro:qbmove.build_flange_from_yaml flange="base_flange" namespace="cube5" parent="root5"/>
+  <xacro:qbmove.build_move_from_yaml namespace="cube5" parent="cube5_base_flange">
+    <origin xyz="0.033 0 0.033" rpy="0 -1.57 0"/>
+  </xacro:qbmove.build_move_from_yaml>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_up" namespace="cube5" parent="cube5_shaft"/>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_down" namespace="cube5" parent="cube5_cube"/>
+
+  <joint name="root6_fixed_joint" type="fixed">
+    <origin xyz="0.4 0.2 0" rpy="0 0 0"/>
+    <parent link="root_link"/>
+    <child link="root6_link"/>
+  </joint>
+  <link name="root6_link"/>
+  <xacro:qbmove.build_flange_from_yaml flange="base_flange" namespace="cube6" parent="root6"/>
+  <xacro:qbmove.build_move_from_yaml namespace="cube6" parent="cube6_base_flange">
+    <origin xyz="0.033 0 0.033" rpy="0 -1.57 0"/>
+  </xacro:qbmove.build_move_from_yaml>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_up" namespace="cube6" parent="cube6_shaft"/>
+  <xacro:qbmove.build_flange_from_yaml flange="finger_down" namespace="cube6" parent="cube6_cube"/>
 
 </robot>
