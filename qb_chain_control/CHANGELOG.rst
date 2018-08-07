@@ -2,6 +2,10 @@
 Changelog for package qb_chain_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.1 (2018-08-07)
+------------------
+* Set safer default values
+
 2.0.0 (2018-06-01)
 ------------------
 * Refactor xacro models and relative launch files
