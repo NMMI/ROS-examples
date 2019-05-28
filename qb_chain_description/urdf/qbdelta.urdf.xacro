@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot name="qbdelta" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find qb_move_description)/urdf/qbmove.utils.xacro" ns="qbmove"/>
+  <xacro:include filename="$(find qb_chain_description)/urdf/qbdelta.utils.xacro" ns="qbdelta"/>
+
+  <link name="root_link"/>
+  <xacro:qbdelta.build namespace="delta" parent="root">
+    <origin xyz="0 0 0.3" rpy="0 3.14 3.14"/>
+  </xacro:qbdelta.build>
+
+</robot>

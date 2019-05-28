@@ -1,13 +1,13 @@
 <launch>
   <!-- robot settings -->
-  <arg name="control_duration" default="0.005" doc="The duration of the control loop [s]."/>
-  <arg name="robot_hardware" default="[cube1, cube2, cube3, cube4, cube5, hand10]" doc="The robot hardware interface namespaces, e.g. [device1, device2, ...]."/>
-  <arg name="robot_name" default="5dof_chain_hand" doc="The unique robot namespace."/>
+  <arg name="control_duration" default="0.003" doc="The duration of the control loop [s]."/>
+  <arg name="robot_hardware" default="[delta_qbmove_1, delta_qbmove_2, delta_qbmove_3, delta_qbmove_4]" doc="The robot hardware interface namespaces, e.g. [device1, device2, ...]."/>
+  <arg name="robot_name" default="qbdelta" doc="The unique robot namespace."/>
   <arg name="robot_namespace" default="$(arg robot_name)" doc="The unique robot namespace."/>
   <arg name="robot_package" default="qb_chain" doc="The base package name prefix for the robot configurations [urdf, rviz, ...]."/>
   <arg name="source_list" default="[control/joint_states]" doc="The joint_states source list for the joint_state_publisher."/>
   <!-- read/write settings -->
-  <arg name="get_currents" default="true" doc="Choose whether or not to retrieve current measurements from the device."/>
+  <arg name="get_currents" default="false" doc="Choose whether or not to retrieve current measurements from the device."/>
   <arg name="get_positions" default="true" doc="Choose whether or not to retrieve position measurements from the device."/>
   <arg name="get_distinct_packages" default="true" doc="Choose whether or not to retrieve current and position measurements from the device in two distinct packages."/>
   <arg name="max_repeats" default="3" doc="The maximum number of consecutive repetitions to mark retrieved data as corrupted."/>
@@ -19,7 +19,9 @@
   <!-- launch settings -->
   <arg name="standalone" default="false" doc="Choose whether or not to start the Communication Handler."/>
   <arg name="use_controller_gui" default="false" doc="Choose whether or not to use the controller GUI."/>
-  <arg name="use_rviz" default="false" doc="Choose whether or not to use rviz."/>
+  <arg name="use_rviz" default="true" doc="Choose whether or not to use rviz."/>
+  <arg name="use_interactive_markers" default="$(arg use_rviz)" doc="Choose whether or not to use interactive markers on rviz."/>
+  <arg name="use_simulator_mode" default="false" doc="Choose whether or not to use previous command values instead of device measurements."/>
   <arg name="use_waypoints" default="false" doc="Choose whether or not to use the waypoint references."/>
 
 
@@ -27,34 +29,48 @@
 
   <include file="$(find qb_device_bringup)/launch/device_bringup.launch" pass_all_args="true">
     <arg name="device_id" value="1"/>
-    <arg name="device_name" value="cube1"/>
+    <arg name="device_name" value="delta_qbmove_1"/>
     <arg name="device_type" value="qbmove"/>
+    <arg name="has_delta_motor_position_limits" value="true"/>
   </include>
   <include file="$(find qb_device_bringup)/launch/device_bringup.launch" pass_all_args="true">
     <arg name="device_id" value="2"/>
-    <arg name="device_name" value="cube2"/>
+    <arg name="device_name" value="delta_qbmove_2"/>
     <arg name="device_type" value="qbmove"/>
+    <arg name="has_delta_motor_position_limits" value="true"/>
   </include>
   <include file="$(find qb_device_bringup)/launch/device_bringup.launch" pass_all_args="true">
     <arg name="device_id" value="3"/>
-    <arg name="device_name" value="cube3"/>
+    <arg name="device_name" value="delta_qbmove_3"/>
     <arg name="device_type" value="qbmove"/>
+    <arg name="has_delta_motor_position_limits" value="true"/>
   </include>
   <include file="$(find qb_device_bringup)/launch/device_bringup.launch" pass_all_args="true">
     <arg name="device_id" value="4"/>
-    <arg name="device_name" value="cube4"/>
+    <arg name="device_name" value="delta_qbmove_4"/>
     <arg name="device_type" value="qbmove"/>
+    <arg name="has_gripper_position_limits" value="true"/>
   </include>
-  <include file="$(find qb_device_bringup)/launch/device_bringup.launch" pass_all_args="true">
-    <arg name="device_id" value="5"/>
-    <arg name="device_name" value="cube5"/>
-    <arg name="device_type" value="qbmove"/>
-  </include>
-  <include file="$(find qb_device_bringup)/launch/device_bringup.launch" pass_all_args="true">
-    <arg name="device_id" value="10"/>
-    <arg name="device_name" value="hand10"/>
-    <arg name="device_type" value="qbhand"/>
-  </include>
+
+  <group ns="$(arg robot_namespace)">
+    <param name="waypoint_namespace" value="waypoints_demo_box"/>
+    <group ns="control">
+      <rosparam subst_value="true">
+        delta_controller:
+          type: qb_chain_controllers/DeltaKinematicController
+          device_names: $(arg robot_hardware)
+          filter_trajectory: true
+          filter_param_b: [0.0001, 0.0006, 0.0016, 0.0021, 0.0016, 0.0006, 0.0001]
+          filter_param_a: [1.0000, -4.0616, 7.0995, -6.7850, 3.7230, -1.1087, 0.1397]
+          max_displacement: 0.001
+      </rosparam>
+
+      <!-- spawn the delta controller in current namespace -->
+      <include file="$(find qb_device_control)/launch/spawner_template.launch">
+        <arg name="device_controllers" value="delta_controller"/>
+      </include>
+    </group>
+  </group>
 
   <include file="$(find qb_device_bringup)/launch/robot_bringup.launch" pass_all_args="true"/>
 </launch>

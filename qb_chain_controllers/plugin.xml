@@ -1,0 +1,7 @@
+<library path="libqb_chain_controllers">
+  <class name="qb_chain_controllers/DeltaKinematicController" type="qb_chain_controllers::DeltaKinematicController" base_class_type="controller_interface::ControllerBase">
+    <description>
+      The DeltaKinematicController computes the joint reference positions for the actuators given the cartesian pose of the end-effector.
+    </description>
+  </class>
+</library>

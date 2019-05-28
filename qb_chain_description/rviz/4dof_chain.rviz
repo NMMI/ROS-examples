@@ -296,6 +296,42 @@ Visualization Manager:
                 {}
       Update Interval: 0
       Value: true
+    - Class: rviz/InteractiveMarkers
+      Enable Transparency: true
+      Enabled: true
+      Name: InteractiveMarkers
+      Show Axes: false
+      Show Descriptions: false
+      Show Visual Aids: true
+      Update Topic: /4dof_chain/cube1_interactive_commands/update
+      Value: true
+    - Class: rviz/InteractiveMarkers
+      Enable Transparency: true
+      Enabled: true
+      Name: InteractiveMarkers
+      Show Axes: false
+      Show Descriptions: false
+      Show Visual Aids: true
+      Update Topic: /4dof_chain/cube2_interactive_commands/update
+      Value: true
+    - Class: rviz/InteractiveMarkers
+      Enable Transparency: true
+      Enabled: true
+      Name: InteractiveMarkers
+      Show Axes: false
+      Show Descriptions: false
+      Show Visual Aids: true
+      Update Topic: /4dof_chain/cube3_interactive_commands/update
+      Value: true
+    - Class: rviz/InteractiveMarkers
+      Enable Transparency: true
+      Enabled: true
+      Name: InteractiveMarkers
+      Show Axes: false
+      Show Descriptions: false
+      Show Visual Aids: true
+      Update Topic: /4dof_chain/cube4_interactive_commands/update
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 246; 244; 242
@@ -336,10 +372,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.335398614
+      Pitch: 0.27039811
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.01040173
+      Yaw: 1.01539278
     Saved:
       - Class: rviz/Orbit
         Distance: 0.682552576
@@ -377,5 +413,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1000
-  X: 2063
-  Y: 98
+  X: 312
+  Y: 157

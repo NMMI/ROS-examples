@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="build_fixed_joint" params="name *origin parent">
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}_link"/>
+      <child link="${name}_link"/>
+    </joint>
+    <link name="${name}_link"/>
+  </xacro:macro>
+
+  <xacro:macro name="build_free_joint" params="name *origin parent:=^ axis:=^ material:=^|'default' mesh:=^|'' mesh_collision:=^|'' mimic_joint:='' mimic_reduction:='1'">
+    <joint name="${name}_joint" type="continuous">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}_link"/>
+      <child link="${name}_link"/>
+      <axis xyz="${axis}"/>
+      <!--<xacro:insert_block name="dynamics"/>-->
+      <!--<xacro:insert_block name="limits"/>-->
+      <xacro:if value="${mimic_joint != ''}">
+        <mimic joint="${mimic_joint}_joint" multiplier="${mimic_reduction}"/>
+      </xacro:if>
+    </joint>
+    <link name="${name}_link">
+      <!--<inertial>-->
+      <!--<xacro:insert_block name="inertia"/>-->
+      <!--</inertial>-->
+      <xacro:if value="${mesh != ''}">
+        <visual>
+          <xacro:qbmove.build_geometry mesh_name="${mesh}" path="qb_chain"/>
+          <material name="qbmove/${material}"/>
+        </visual>
+      </xacro:if>
+      <xacro:if value="${mesh_collision != ''}">
+        <collision>
+          <xacro:qbmove.build_geometry mesh_name="${mesh_collision}"/>
+        </collision>
+      </xacro:if>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="build_forearm" params="namespace parent *origin">
+    <xacro:qbdelta.build_fixed_joint name="${namespace}_forearm" parent="${parent}">
+      <xacro:insert_block name="origin"/>
+    </xacro:qbdelta.build_fixed_joint>
+    <xacro:qbdelta.build_free_joint name="${namespace}_free_down" parent="${namespace}_forearm" axis="0 0 1" mesh="qb_delta_joint">
+      <origin xyz="0 0 -0.014" rpy="0 0 -1.57"/>
+    </xacro:qbdelta.build_free_joint>
+    <xacro:qbdelta.build_free_joint name="${namespace}_free_l" parent="${namespace}_free_down" axis="0 0 1">
+      <origin xyz="0 0 0.0513" rpy="0 1.57 0"/>
+    </xacro:qbdelta.build_free_joint>
+    <xacro:qbmove.build_displaced_flange_from_yaml path="qb_chain" configuration="delta_flanges" flange="forearm_l" namespace="${namespace}" parent="${namespace}_free_l" type="default">
+      <origin xyz="0 0 0" rpy="1.57 1.57 0"/>
+    </xacro:qbmove.build_displaced_flange_from_yaml>
+    <xacro:qbdelta.build_free_joint name="${namespace}_free_r" parent="${namespace}_free_down" axis="0 0 1" mimic_joint="${namespace}_free_l" mimic_reduction="1">
+      <origin xyz="0 0 -0.0263" rpy="0 1.57 0"/>
+    </xacro:qbdelta.build_free_joint>
+    <xacro:qbmove.build_displaced_flange_from_yaml path="qb_chain" configuration="delta_flanges" flange="forearm_r" namespace="${namespace}" parent="${namespace}_free_r" type="default">
+      <origin xyz="0 0 0" rpy="1.57 1.57 0"/>
+    </xacro:qbmove.build_displaced_flange_from_yaml>
+    <xacro:qbdelta.build_free_joint name="${namespace}_free_up" parent="${namespace}_forearm_l" axis="0 0 1" mimic_joint="${namespace}_free_l" mimic_reduction="1">
+      <origin xyz="0 0 -0.156" rpy="0 1.57 0"/>
+    </xacro:qbdelta.build_free_joint>
+    <xacro:qbmove.build_displaced_flange_from_yaml path="qb_chain" configuration="delta_flanges" flange="forearm_up" namespace="${namespace}" parent="${namespace}_free_up" type="default">
+      <origin xyz="0 0.0513 0" rpy="0 -1.57 1.57"/>
+    </xacro:qbmove.build_displaced_flange_from_yaml>
+  </xacro:macro>
+
+  <xacro:macro name="build_motor" params="namespace parent *origin">
+    <xacro:qbmove.build_displaced_flange_from_yaml flange="flat_flange" namespace="${namespace}" parent="${parent}">
+      <xacro:insert_block name="origin"/>
+    </xacro:qbmove.build_displaced_flange_from_yaml>
+    <xacro:qbmove.build_move_from_yaml namespace="${namespace}" parent="${namespace}_flat_flange">
+      <origin xyz="0.033 0 0.033" rpy="1.57 0 -1.57"/>
+    </xacro:qbmove.build_move_from_yaml>
+    <xacro:qbmove.build_flange_from_yaml path="qb_chain" configuration="delta_flanges" flange="c_flange_axis" namespace="${namespace}" parent="${namespace}_shaft"/>
+    <xacro:qbdelta.build_fixed_joint name="${namespace}_upperarm" parent="${namespace}_c_flange_axis">
+      <origin xyz="0 -0.035 0.02" rpy="0 1.57 0"/>
+    </xacro:qbdelta.build_fixed_joint>
+  </xacro:macro>
+
+  <xacro:macro name="build_base" params="namespace parent *origin">
+    <xacro:qbdelta.build_fixed_joint name="${namespace}_base_frame" parent="${parent}">
+      <xacro:insert_block name="origin"/>
+    </xacro:qbdelta.build_fixed_joint>
+    <xacro:qbmove.build_flange_from_yaml path="qb_chain" configuration="delta_flanges" flange="upper_plate" namespace="${namespace}" parent="${namespace}_base_frame"/>
+    <xacro:qbdelta.build_motor namespace="${namespace}_qbmove_1" parent="${namespace}_upper_plate">
+      <origin xyz="0 0.015 0.1" rpy="-1.57 3.14 0"/>
+    </xacro:qbdelta.build_motor>
+    <xacro:qbdelta.build_motor namespace="${namespace}_qbmove_3" parent="${namespace}_upper_plate">
+      <origin xyz="-0.0865 0.015 -0.05" rpy="-1.57 1.05 0"/>
+    </xacro:qbdelta.build_motor>
+    <xacro:qbdelta.build_motor namespace="${namespace}_qbmove_2" parent="${namespace}_upper_plate">
+      <origin xyz="0.0865 0.015 -0.05" rpy="-1.57 -1.05 0"/>
+    </xacro:qbdelta.build_motor>
+  </xacro:macro>
+
+  <xacro:macro name="build_gripper" params="namespace parent *origin">
+    <xacro:qbmove.build_displaced_flange_from_yaml flange="flat_flange" namespace="${namespace}" parent="${parent}">
+      <xacro:insert_block name="origin"/>
+    </xacro:qbmove.build_displaced_flange_from_yaml>
+    <xacro:qbmove.build_move_from_yaml namespace="${namespace}" parent="${namespace}_flat_flange">
+      <origin xyz="0.033 0 0.033" rpy="-1.57 0 1.57"/>
+    </xacro:qbmove.build_move_from_yaml>
+    <xacro:qbmove.build_flange_from_yaml flange="finger_up" namespace="${namespace}" parent="${namespace}_shaft"/>
+    <xacro:qbmove.build_flange_from_yaml flange="finger_down" namespace="${namespace}" parent="${namespace}_cube"/>
+  </xacro:macro>
+
+  <xacro:macro name="build_end_effector" params="namespace">
+    <joint name="${namespace}_ee_frame_joint" type="floating">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${namespace}_base_frame_link"/>
+      <child link="${namespace}_ee_frame_link"/>
+    </joint>
+    <link name="${namespace}_ee_frame_link"/>
+
+    <xacro:qbdelta.build_forearm namespace="${namespace}_qbmove_1" parent="${namespace}_ee_frame">
+      <origin xyz="0.0455 0 0" rpy="1.57 0 0"/>
+    </xacro:qbdelta.build_forearm>
+    <xacro:qbdelta.build_forearm namespace="${namespace}_qbmove_3" parent="${namespace}_ee_frame">
+      <origin xyz="-0.0227 -0.0394 0" rpy="1.57 0 -2.095"/>
+    </xacro:qbdelta.build_forearm>
+    <xacro:qbdelta.build_forearm namespace="${namespace}_qbmove_2" parent="${namespace}_ee_frame">
+      <origin xyz="-0.0227 0.0394 0" rpy="1.57 0 2.095"/>
+    </xacro:qbdelta.build_forearm>
+
+    <xacro:qbmove.build_displaced_flange_from_yaml path="qb_chain" configuration="delta_flanges" flange="gripper_plate" namespace="${namespace}" parent="${namespace}_ee_frame">
+      <origin xyz="0 0 0.0198" rpy="1.57 0 0.52"/>
+    </xacro:qbmove.build_displaced_flange_from_yaml>
+    <xacro:qbdelta.build_gripper namespace="${namespace}_qbmove_4" parent="${namespace}_gripper_plate">
+      <origin xyz="0 0.007 0" rpy="-1.57 2.62 0"/>
+    </xacro:qbdelta.build_gripper>
+  </xacro:macro>
+
+  <xacro:macro name="build" params="namespace parent *origin">
+    <xacro:qbdelta.build_base namespace="${namespace}" parent="${parent}">
+      <xacro:insert_block name="origin"/>
+    </xacro:qbdelta.build_base>
+    <xacro:qbdelta.build_end_effector namespace="${namespace}"/>
+  </xacro:macro>
+
+</robot>

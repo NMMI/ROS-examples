@@ -1,6 +1,6 @@
 <launch>
   <!-- robot settings -->
-  <arg name="control_duration" default="0.01" doc="The duration of the control loop [s]."/>
+  <arg name="control_duration" default="0.005" doc="The duration of the control loop [s]."/>
   <arg name="robot_hardware" default="[cube1, cube2]" doc="The robot hardware interface namespaces, e.g. [device1, device2, ...]."/>
   <arg name="robot_name" default="2dof_chain" doc="The unique robot namespace."/>
   <arg name="robot_namespace" default="$(arg robot_name)" doc="The unique robot namespace."/>

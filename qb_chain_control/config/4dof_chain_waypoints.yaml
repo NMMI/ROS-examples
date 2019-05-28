@@ -18,14 +18,56 @@ waypoints:
   -
     time: [2.0]
     joint_positions:
-      cube1: [-1.0, 0.0]
-      cube2: [-1.0, 0.0]
-      cube3: [-1.0, 0.0]
-      cube4: [-1.0, 0.0]
+      cube1: [0.0, 0.5]
+      cube2: [-1.0, 0.5]
+      cube3: [-1.0, 0.5]
+      cube4: [0.0, 0.5]
   -
     time: [4.0]
     joint_positions:
-      cube1: [1.0, 0.0]
-      cube2: [1.0, 0.0]
-      cube3: [1.0, 0.0]
-      cube4: [1.0, 0.0]
+      cube1: [-1.0, 0.5]
+      cube2: [-1.5, 0.5]
+      cube3: [-1.5, 0.5]
+      cube4: [0.0, 0.5]
+  -
+    time: [4.5]
+    joint_positions:
+      cube1: [-1.0, 0.5]
+      cube2: [-1.5, 0.5]
+      cube3: [-1.5, 0.5]
+      cube4: [1.0, 0.5]
+  -
+    time: [5.0]
+    joint_positions:
+      cube1: [-1.0, 0.5]
+      cube2: [-1.5, 0.5]
+      cube3: [-1.5, 0.5]
+      cube4: [0.0, 0.5]
+  -
+    time: [7.0]
+    joint_positions:
+      cube1: [0.0, 0.5]
+      cube2: [-1.0, 0.5]
+      cube3: [-1.0, 0.5]
+      cube4: [0.0, 0.5]
+  -
+    time: [9.0]
+    joint_positions:
+      cube1: [1.0, 0.5]
+      cube2: [-1.5, 0.5]
+      cube3: [-1.5, 0.5]
+      cube4: [0.0, 0.5]
+  -
+    time: [9.5]
+    joint_positions:
+      cube1: [1.0, 0.5]
+      cube2: [-1.5, 0.5]
+      cube3: [-1.5, 0.5]
+      cube4: [1.0, 0.5]
+  -
+    time: [10.0]
+    joint_positions:
+      cube1: [1.0, 0.5]
+      cube2: [-1.5, 0.5]
+      cube3: [-1.5, 0.5]
+      cube4: [0.0, 0.5]

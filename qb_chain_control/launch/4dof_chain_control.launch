@@ -1,6 +1,6 @@
 <launch>
   <!-- robot settings -->
-  <arg name="control_duration" default="0.01" doc="The duration of the control loop [s]."/>
+  <arg name="control_duration" default="0.005" doc="The duration of the control loop [s]."/>
   <arg name="robot_hardware" default="[cube1, cube2, cube3, cube4]" doc="The robot hardware interface namespaces, e.g. [device1, device2, ...]."/>
   <arg name="robot_name" default="4dof_chain" doc="The unique robot namespace."/>
   <arg name="robot_namespace" default="$(arg robot_name)" doc="The unique robot namespace."/>
@@ -20,6 +20,8 @@
   <arg name="standalone" default="false" doc="Choose whether or not to start the Communication Handler."/>
   <arg name="use_controller_gui" default="false" doc="Choose whether or not to use the controller GUI."/>
   <arg name="use_rviz" default="true" doc="Choose whether or not to use rviz."/>
+  <arg name="use_interactive_markers" default="$(arg use_rviz)" doc="Choose whether or not to use interactive markers on rviz."/>
+  <arg name="use_simulator_mode" default="false" doc="Choose whether or not to use previous command values instead of device measurements."/>
   <arg name="use_waypoints" default="false" doc="Choose whether or not to use the waypoint references."/>
 
 
@@ -44,6 +46,7 @@
     <arg name="device_id" value="4"/>
     <arg name="device_name" value="cube4"/>
     <arg name="device_type" value="qbmove"/>
+    <arg name="has_gripper_position_limits" value="true"/>
   </include>
 
   <include file="$(find qb_device_bringup)/launch/robot_bringup.launch" pass_all_args="true"/>

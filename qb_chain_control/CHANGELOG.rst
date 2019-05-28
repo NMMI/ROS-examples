@@ -2,6 +2,13 @@
 Changelog for package qb_chain_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.1.0 (2019-05-28)
+------------------
+* Update demo points and launch settings
+* Add a simulator mode to debug joint trajectories
+* Fix default control duration of launch files
+* Add delta controller
+
 2.0.2 (2018-08-09)
 ------------------
 

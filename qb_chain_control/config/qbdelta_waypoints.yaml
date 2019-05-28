@@ -1,0 +1,658 @@
+# Waypoints describe the desired motion trajectory:
+#  - time [s]: it is mandatory and can be either a single value or an interval for which other values hold;
+#  - end_effector [m]: a three-element list of [x, y, z] coordinates for the delta end-effector position;
+#  - joint_stiffness [0,1]: a three-element list of stiffness values, one for each of the three upper motors;
+#  - gripper: a two-element list containing the shaft position [rad] and the stiffness value [0,1] of the gripper.
+#
+# Whenever these are not present in the Parameter Server, it is assigned the last available value.
+
+waypoints:
+  - time: [1.0]
+    joint_stiffness: [0.75, 0.75, 0.75]
+    end_effector: [0.0, 0.0, 0.13]
+    gripper: [0.0, 0.5]
+  -
+    time: [3.0, 4.0]
+    end_effector: [0.0, 0.08, 0.13]
+    gripper: [0.0, 0.5]
+  -
+    time: [5.0]
+    end_effector: [0.0, 0.08, 0.13]
+    gripper: [1.0, 0.5]
+  -
+    time: [6.0]
+    end_effector: [0.0, 0.08, 0.18]
+    gripper: [1.0, 0.5]
+  -
+    time: [7.0]
+    end_effector: [0.0, 0.08, 0.18]
+    gripper: [0.0, 0.5]
+  -
+    time: [8.0,9.0]
+    end_effector: [0.0, 0.08, 0.13]
+    gripper: [0.0, 0.5]
+  -
+    time: [11.0,12.0]
+    end_effector: [0.0, -0.08, 0.13]
+    gripper: [0.0, 0.5]
+  -
+    time: [13.0]
+    end_effector: [0.0, -0.08, 0.18]
+    gripper: [0.0, 0.5]
+  -
+    time: [14.0]
+    end_effector: [0.0, -0.08, 0.18]
+    gripper: [1.0, 0.5]
+  -
+    time: [15.0, 16.0]
+    end_effector: [0.0, -0.08, 0.13]
+    gripper: [1.0, 0.5]
+  -
+    time: [17.0]
+    end_effector: [0.0, -0.08, 0.13]
+    gripper: [0.0, 0.5]
+  -
+    time: [19.0, 20.0]
+    end_effector: [0.0, 0.0, 0.13]
+    gripper: [0.0, 0.5]
+#
+#
+#points_demo_rai:
+#  - &close [0.0, 0.5]
+#  - &open [1.0, 0.5]
+#  - &stiffness [1.0, 1.0, 1.0]
+#  - &z_up 0.14
+#  - &z_down 0.19
+#  - &x_1 0.03
+#  - &y_1 0.06
+#  - &x_2 0.03
+#  - &y_2 -0.06
+#  - &x_3 -0.03
+#  - &y_3 0.06
+#  - &x_4 -0.03
+#  - &y_4 -0.06
+#  - &point_start [0.0, 0.0, *z_up]
+#  - &point_1_up [*x_1, *y_1, *z_up]
+#  - &point_1_down [*x_1, *y_1, *z_down]
+#  - &point_2_up [*x_2, *y_2, *z_up]
+#  - &point_2_down [*x_2, *y_2, *z_down]
+#  - &point_3_up [*x_3, *y_3, *z_up]
+#  - &point_3_down [*x_3, *y_3, *z_down]
+#  - &point_4_up [*x_4, *y_4, *z_up]
+#  - &point_4_down [*x_4, *y_4, *z_down]
+#
+#waypoints_demo_rai:
+#  # first sequence
+#  - duration: [1.0]
+#    joint_stiffness: *stiffness
+#    end_effector: *point_start
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_1_up
+#    gripper: *close
+#  - duration: [0.5]
+#    end_effector: *point_1_up
+#    gripper: *open
+#  - duration: [1.0]
+#    end_effector: *point_1_down
+#    gripper: *open
+#  - duration: [0.5]
+#    end_effector: *point_1_down
+#    gripper: *close
+#  - duration: [1.0, 0.5]
+#    end_effector: *point_1_up
+#    gripper: *close
+#  - duration: [1.0, 0.5]
+#    end_effector: *point_2_up
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_2_down
+#    gripper: *close
+#  - duration: [0.5]
+#    end_effector: *point_2_down
+#    gripper: *open
+#  - duration: [1.0]
+#    end_effector: *point_2_up
+#    gripper: *open
+#  - duration: [0.5]
+#    end_effector: *point_2_up
+#    gripper: *close
+#    # second sequence
+#  - duration: [1.0]
+#    joint_stiffness: *stiffness
+#    end_effector: *point_start
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_3_up
+#    gripper: *close
+#  - duration: [0.5]
+#    end_effector: *point_3_up
+#    gripper: *open
+#  - duration: [1.0]
+#    end_effector: *point_3_down
+#    gripper: *open
+#  - duration: [0.5]
+#    end_effector: *point_3_down
+#    gripper: *close
+#  - duration: [1.0, 0.5]
+#    end_effector: *point_3_up
+#    gripper: *close
+#  - duration: [1.0, 0.5]
+#    end_effector: *point_4_up
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_4_down
+#    gripper: *close
+#  - duration: [0.5]
+#    end_effector: *point_4_down
+#    gripper: *open
+#  - duration: [1.0]
+#    end_effector: *point_4_up
+#    gripper: *open
+#  - duration: [0.5]
+#    end_effector: *point_4_up
+#    gripper: *close
+#
+#
+points_demo_box:
+ - &close [0.0, 0.6]
+ - &open [0.25, 0.6]
+ - &high_stiffness [1.0, 1.0, 1.0]
+ - &low_stiffness [0.7, 0.7, 0.7]
+ - &z_up 0.29
+ - &z_pin_down 0.35
+ - &z_screw_down 0.33
+ - &x_pick_1 -0.045
+ - &y_pick_1 0.07
+ - &z_pick_1 0.355
+ - &x_pick_2 -0.015
+ - &y_pick_2 0.07
+ - &z_pick_2 0.353
+ - &x_pick_3 0.015
+ - &y_pick_3 0.07
+ - &z_pick_3 0.351
+ - &x_pick_4 0.045
+ - &y_pick_4 0.07
+ - &z_pick_4 0.351
+ - &x_release_1 -0.025
+ - &y_release_1 -0.015
+ - &x_release_2 0.020
+ - &y_release_2 0.022
+ - &x_release_3 0.025
+ - &y_release_3 -0.017
+ - &x_release_4 -0.0225
+ - &y_release_4 0.022
+ - &point_start [-0.10, 0.0, *z_up]
+ - &point_pick_1_up [*x_pick_1, *y_pick_1, *z_up]
+ - &point_pick_1_down [*x_pick_1, *y_pick_1, *z_pick_1]
+ - &point_pick_2_up [*x_pick_2, *y_pick_2, *z_up]
+ - &point_pick_2_down [*x_pick_2, *y_pick_2, *z_pick_2]
+ - &point_pick_3_up [*x_pick_3, *y_pick_3, *z_up]
+ - &point_pick_3_down [*x_pick_3, *y_pick_3, *z_pick_3]
+ - &point_pick_4_up [*x_pick_4, *y_pick_4, *z_up]
+ - &point_pick_4_down [*x_pick_4, *y_pick_4, *z_pick_4]
+ - &point_release_1_up [*x_release_1, *y_release_1, *z_up]
+ - &point_release_1_down [*x_release_1, *y_release_1, *z_pin_down]
+ - &point_release_2_up [*x_release_2, *y_release_2, *z_up]
+ - &point_release_2_down [*x_release_2, *y_release_2, *z_pin_down]
+ - &point_release_3_up [*x_release_3, *y_release_3, *z_up]
+ - &point_release_3_down [*x_release_3, *y_release_3, *z_screw_down]
+ - &point_release_4_up [*x_release_4, *y_release_4, *z_up]
+ - &point_release_4_down [*x_release_4, *y_release_4, *z_screw_down]
+
+waypoints_demo_box:
+ # start
+ - duration: [1.0, 5.0]
+   joint_stiffness: *high_stiffness
+   end_effector: *point_start
+   gripper: *close
+ # first sequence
+ - duration: [1.0]
+   end_effector: *point_pick_1_up
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_pick_1_up
+   gripper: *open
+ - duration: [1.0]
+   end_effector: *point_pick_1_down
+   gripper: *open
+ - duration: [0.5]
+   end_effector: *point_pick_1_down
+   gripper: *close
+ - duration: [1.0, 0.5]
+   end_effector: *point_pick_1_up
+   gripper: *close
+ - duration: [1.0, 0.5]
+   end_effector: *point_release_1_up
+   gripper: *close
+ - duration: [1.0]
+   joint_stiffness: *low_stiffness
+   end_effector: *point_release_1_down
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_release_1_down
+   gripper: *open
+ - duration: [1.0]
+   joint_stiffness: *high_stiffness
+   end_effector: *point_release_1_up
+   gripper: *open
+ - duration: [0.5]
+   end_effector: *point_release_1_up
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_release_1_down
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_release_1_up
+   gripper: *open
+ # second sequence
+ - duration: [1.0]
+   end_effector: *point_pick_2_up
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_pick_2_up
+   gripper: *open
+ - duration: [1.0]
+   end_effector: *point_pick_2_down
+   gripper: *open
+ - duration: [0.5]
+   end_effector: *point_pick_2_down
+   gripper: *close
+ - duration: [1.0, 0.5]
+   end_effector: *point_pick_2_up
+   gripper: *close
+ - duration: [1.0, 0.5]
+   end_effector: *point_release_2_up
+   gripper: *close
+ - duration: [1.0]
+   joint_stiffness: *low_stiffness
+   end_effector: *point_release_2_down
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_release_2_down
+   gripper: *open
+ - duration: [1.0]
+   joint_stiffness: *high_stiffness
+   end_effector: *point_release_2_up
+   gripper: *open
+ - duration: [0.5]
+   end_effector: *point_release_2_up
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_release_2_down
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_release_2_up
+   gripper: *open
+ # third sequence
+ - duration: [1.0]
+   end_effector: *point_pick_3_up
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_pick_3_up
+   gripper: *open
+ - duration: [1.0]
+   end_effector: *point_pick_3_down
+   gripper: *open
+ - duration: [0.5]
+   end_effector: *point_pick_3_down
+   gripper: *close
+ - duration: [1.0, 0.5]
+   end_effector: *point_pick_3_up
+   gripper: *close
+ - duration: [1.0, 0.5]
+   end_effector: *point_release_3_up
+   gripper: *close
+ - duration: [1.0]
+   joint_stiffness: *low_stiffness
+   end_effector: *point_release_3_down
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_release_3_down
+   gripper: *open
+ - duration: [1.0]
+   joint_stiffness: *high_stiffness
+   end_effector: *point_release_3_up
+   gripper: *open
+ - duration: [0.5]
+   end_effector: *point_release_3_up
+   gripper: *close
+ # fourth sequence
+ - duration: [1.0]
+   end_effector: *point_pick_4_up
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_pick_4_up
+   gripper: *open
+ - duration: [1.0]
+   end_effector: *point_pick_4_down
+   gripper: *open
+ - duration: [0.5]
+   end_effector: *point_pick_4_down
+   gripper: *close
+ - duration: [1.0, 0.5]
+   end_effector: *point_pick_4_up
+   gripper: *close
+ - duration: [1.0, 0.5]
+   end_effector: *point_release_4_up
+   gripper: *close
+ - duration: [1.0]
+   joint_stiffness: *low_stiffness
+   end_effector: *point_release_4_down
+   gripper: *close
+ - duration: [0.5]
+   end_effector: *point_release_4_down
+   gripper: *open
+ - duration: [1.0]
+   joint_stiffness: *high_stiffness
+   end_effector: *point_release_4_up
+   gripper: *open
+ - duration: [0.5]
+   end_effector: *point_release_4_up
+   gripper: *close
+ # end
+ - duration: [1.0, 20.0]
+   joint_stiffness: *high_stiffness
+   end_effector: *point_start
+   gripper: *close
+#
+#
+#points_demo_xmas:
+#  - &close [0.0, 0.5]
+#  - &open [0.5, 0.5]
+#  - &stiffness [1.0, 1.0, 1.0]
+#  # coordinates
+#  - &z_up 0.27
+#  - &z_down 0.286
+#  - &z_write_up 0.27
+#  - &z_write_back_down 0.29
+#  - &z_write_front_down 0.285
+#  # red color
+#  - &x_pick_red 0.0
+#  - &y_pick_red 0.0
+#  # M
+#  - &x_M_1 -0.02
+#  - &y_M_1  0.08
+#  - &x_M_2 -0.055
+#  - &x_M_3 -0.03
+#  - &y_M_3  0.065
+#  - &y_M_4  0.05
+#  - &x_M_5 -0.015
+#  - &y_M_5  0.055
+#  # E
+#  - &x_E_1 -0.04
+#  - &y_E_1  0.035
+#  - &y_E_2  0.045
+#  # Y
+#  - &x_Y_1 -0.035
+#  - &y_Y_1 -0.01
+#  # X
+#  - &x_X_1  0.0
+#  - &y_X_1  0.07
+#  - &x_X_2  0.03
+#  - &y_X_2  0.05
+#  # M2
+#  - &y_M2_1  0.04
+#  # tree up
+#  - &x_tree_1  0.02
+#  - &y_tree_1 -0.06
+#  - &x_tree_2  0.0
+#  - &y_tree_2 -0.045
+#  - &x_tree_3  0.0
+#  - &y_tree_3 -0.055
+#  - &x_tree_4 -0.02
+#  - &y_tree_4 -0.045
+#  - &x_tree_5 -0.02
+#  - &y_tree_5 -0.05
+#  - &x_tree_6 -0.05
+#  - &y_tree_6 -0.04
+#  - &x_tree_7 -0.02
+#  - &y_tree_7 -0.03
+#  - &x_tree_8 -0.02
+#  - &y_tree_8 -0.035
+#  - &x_tree_9  0.0
+#  - &y_tree_9 -0.025
+#  - &x_tree_10  0.0
+#  - &y_tree_10 -0.035
+#  - &x_tree_11  0.02
+#  - &y_tree_11 -0.02
+#  # tree bottom
+#  - &x_tree_12  0.02
+#  - &y_tree_12 -0.03
+#  - &x_tree_13  0.03
+#  - &y_tree_13 -0.03
+#  - &x_tree_14  0.03
+#  - &y_tree_14 -0.05
+#  - &x_tree_15  0.02
+#  - &y_tree_15 -0.05
+#  # green color
+#  - &x_release_green 0.0
+#  - &y_release_green 0.0
+#  # points
+#  - &point_start [-0.10, 0.0, *z_up]
+#  - &point_pick_red_up [*x_pick_red, *y_pick_red, *z_up]
+#  - &point_pick_red_down [*x_pick_red, *y_pick_red, *z_down]
+#  - &point_M_1_up [*x_M_1, *y_M_1, *z_write_up]
+#  - &point_M_1_down [*x_M_1, *y_M_1, *z_write_back_down]
+#  - &point_M_2_down [*x_M_2, *y_M_1, *z_write_back_down]
+#  - &point_M_3_down [*x_M_3, *y_M_3, *z_write_back_down]
+#  - &point_M_4_down [*x_M_2, *y_M_4, *z_write_back_down]
+#  - &point_M_5_down [*x_M_5, *y_M_5, *z_write_back_down]
+#  - &point_M_5_up [*x_M_5, *y_M_5, *z_write_up]
+#  - &point_E_1_up [*x_E_1, *y_E_1, *z_write_up]
+#  - &point_E_1_down [*x_E_1, *y_E_1, *z_write_back_down]
+#  - &point_E_2_down [*x_E_1, *y_E_2, *z_write_back_down]
+#  - &point_E_2_up [*x_E_1, *y_E_2, *z_write_up]
+#  - &point_Y_1_up [*x_Y_1, *y_Y_1, *z_write_up]
+#  - &point_Y_1_down [*x_Y_1, *y_Y_1, *z_write_back_down]
+#  - &point_Y_2_down [*x_M_1, *y_Y_1, *z_write_back_down]
+#  - &point_Y_2_up [*x_M_1, *y_Y_1, *z_write_up]
+#  - &point_X_1_up [*x_X_1, *y_X_1, *z_write_up]
+#  - &point_X_1_down [*x_X_1, *y_X_1, *z_write_front_down]
+#  - &point_X_2_down [*x_X_2, *y_X_2, *z_write_front_down]
+#  - &point_X_2_up [*x_X_2, *y_X_2, *z_write_up]
+#  - &point_X_3_up [*x_X_2, *y_X_1, *z_write_up]
+#  - &point_X_3_down [*x_X_2, *y_X_1, *z_write_front_down]
+#  - &point_X_4_down [*x_X_1, *y_X_2, *z_write_front_down]
+#  - &point_X_4_up [*x_X_1, *y_X_2, *z_write_up]
+#  - &point_M2_1_up [*x_X_2, *y_M2_1, *z_write_up]
+#  - &point_tree_1_up [*x_tree_1, *y_tree_1, *z_write_up]
+#  - &point_tree_1_down [*x_tree_1, *y_tree_1, *z_write_back_down]
+#  - &point_tree_2_down [*x_tree_2, *y_tree_2, *z_write_back_down]
+#  - &point_tree_3_down [*x_tree_3, *y_tree_3, *z_write_back_down]
+#  - &point_tree_4_down [*x_tree_4, *y_tree_4, *z_write_back_down]
+#  - &point_tree_5_down [*x_tree_5, *y_tree_5, *z_write_back_down]
+#  - &point_tree_6_down [*x_tree_6, *y_tree_6, *z_write_back_down]
+#  - &point_tree_7_down [*x_tree_7, *y_tree_7, *z_write_back_down]
+#  - &point_tree_8_down [*x_tree_8, *y_tree_8, *z_write_back_down]
+#  - &point_tree_9_down [*x_tree_9, *y_tree_9, *z_write_back_down]
+#  - &point_tree_10_down [*x_tree_10, *y_tree_10, *z_write_back_down]
+#  - &point_tree_11_down [*x_tree_11, *y_tree_11, *z_write_back_down]
+#  - &point_tree_12_up [*x_tree_12, *y_tree_12, *z_write_up]
+#  - &point_tree_12_down [*x_tree_12, *y_tree_12, *z_write_back_down]
+#  - &point_tree_13_down [*x_tree_13, *y_tree_13, *z_write_back_down]
+#  - &point_tree_14_down [*x_tree_14, *y_tree_14, *z_write_back_down]
+#  - &point_tree_15_down [*x_tree_15, *y_tree_15, *z_write_back_down]
+#  - &point_tree_15_up [*x_tree_15, *y_tree_15, *z_write_up]
+#  - &point_release_green_up [*x_release_green, *y_release_green, *z_up]
+#  - &point_release_green_down [*x_release_green, *y_release_green, *z_up]
+#
+#waypoints_demo_xmas:
+#  # start
+#  - duration: [1.0, 500.0]
+#    joint_stiffness: *stiffness
+#    end_effector: *point_start
+#    gripper: *close
+  # pick sequence
+#  - duration: [1.0]
+#    end_effector: *point_pick_red_up
+#    joint_stiffness: *stiffness
+#    gripper: *close
+#  - duration: [0.5,1.0]
+#    end_effector: *point_pick_red_up
+#    gripper: *open
+#  - duration: [1.0]
+#    end_effector: *point_pick_red_down
+#    gripper: *open
+#  - duration: [0.5]
+#    end_effector: *point_pick_red_down
+#    gripper: *close
+#  - duration: [1.0, 0.5]
+#    end_effector: *point_pick_red_up
+#    gripper: *close
+#  # M sequence
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_M_1_up
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_M_1_down
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_M_2_down
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_M_3_down
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_M_4_down
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_M_5_down
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_M_5_up
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_E_1_up
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_E_1_down
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_E_2_down
+#    gripper: *close
+#  - duration: [1.0, 10.0]
+#    end_effector: *point_E_2_up
+#    gripper: *close
+#  # Y/X sequence
+#  - duration: [2.0, 0.1]
+#    end_effector: *point_Y_1_up
+#    gripper: *close
+#  - duration: [1.0, 1.0, 0.1]
+#    end_effector: *point_Y_1_down
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_Y_2_down
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_Y_2_up
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_X_1_up
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_X_1_down
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_X_2_down
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_X_2_up
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_X_3_up
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_X_3_down
+#    gripper: *close
+#  - duration: [1.0, 0.1]
+#    end_effector: *point_X_4_down
+#    gripper: *close
+#  - duration: [1.0, 10.1]
+#    end_effector: *point_X_4_up
+#    gripper: *close
+#  - duration: [1.0, 1.0]
+#    end_effector: *point_M2_1_up
+#    gripper: *close
+#  # tree sequence
+#  - duration: [1.0]
+#    end_effector: *point_tree_1_up
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_1_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_2_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_3_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_4_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_5_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_6_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_7_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_8_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_9_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_10_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_11_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_1_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_1_up
+#    gripper: *close
+#  - duration: [1.0, 0.25]
+#    end_effector: *point_tree_12_up
+#    gripper: *close
+#  - duration: [1.0, 0.25]
+#    end_effector: *point_tree_12_down
+#    gripper: *close
+#  - duration: [1.0, 0.25]
+#    end_effector: *point_tree_13_down
+#    gripper: *close
+#  - duration: [1.0, 0.25]
+#    end_effector: *point_tree_14_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_15_down
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_tree_15_up
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_release_green_up
+#    gripper: *close
+#  - duration: [1.0, 10.5]
+#    end_effector: *point_release_green_up
+#    gripper: *close
+#  - duration: [1.0]
+#    end_effector: *point_release_green_down
+#    gripper: *close
+#  - duration: [0.5]
+#    end_effector: *point_release_green_down
+#    gripper: *open
+#  - duration: [1.0]
+#    end_effector: *point_release_green_up
+#    gripper: *open
+#  - duration: [0.5]
+#    end_effector: *point_release_green_up
+#    gripper: *close
+#  - duration: [1.0, 5.0]
+#    end_effector: *point_start
+#    gripper: *close
