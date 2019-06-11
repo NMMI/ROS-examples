@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.0.2 FATAL_ERROR)
-project(qb_chain_controllers VERSION 2.1.0 LANGUAGES CXX)
+project(qb_chain_controllers VERSION 2.1.1 LANGUAGES CXX)
 
 # Dependency Settings
 find_package(catkin REQUIRED
   COMPONENTS
     roscpp
+    control_msgs
     controller_interface
     geometry_msgs
     interactive_markers
@@ -25,6 +26,7 @@ catkin_package(
     ${PROJECT_NAME}
   CATKIN_DEPENDS
     roscpp
+    control_msgs
     controller_interface
     geometry_msgs
     interactive_markers
